@@ -1,9 +1,7 @@
 package com.bobocode.net.server;
 
-import com.bobocode.util.ExerciseNotCompletedException;
-import lombok.SneakyThrows;
-
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
@@ -11,6 +9,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import lombok.SneakyThrows;
 
 /**
  * Util class for a {@link MessageBoardServer}. It provides all necessary method for network communication. Using these
@@ -41,7 +41,7 @@ public class ServerUtil {
      */
     @SneakyThrows
     public static ServerSocket createServerSocket(int port) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
+        return new ServerSocket(port);
     }
 
     /**
@@ -52,7 +52,7 @@ public class ServerUtil {
      */
     @SneakyThrows
     public static Socket acceptClientSocket(ServerSocket serverSocket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
+        return serverSocket.accept();
     }
 
     /**
@@ -66,7 +66,16 @@ public class ServerUtil {
      */
     @SneakyThrows
     public static String readMessageFromSocket(Socket socket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
+
+        InputStream inputStream = socket.getInputStream();
+        StringBuilder stringBuilder = new StringBuilder();
+        int character;
+        while (((character = inputStream.read()) >= 0) && (character != 0x0a)) {
+            if (character != 0x0d) {
+                stringBuilder.append((char) character);
+            }
+        }
+        return stringBuilder.toString();
     }
 
     /**

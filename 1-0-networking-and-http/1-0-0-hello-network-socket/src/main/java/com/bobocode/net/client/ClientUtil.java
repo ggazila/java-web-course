@@ -1,10 +1,12 @@
 package com.bobocode.net.client;
 
-import com.bobocode.util.ExerciseNotCompletedException;
-import lombok.SneakyThrows;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
+
+import lombok.SneakyThrows;
 
 /**
  * A util class that implements all the logic required for building {@link MessageBoardClient}.
@@ -24,7 +26,7 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static Socket openSocket(String host, int port) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        return new Socket(host, port);
     }
 
     /**
@@ -62,6 +64,6 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static void writeToSocket(String message, Socket socket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        socket.getOutputStream().write(message.getBytes());
     }
 }

@@ -8,6 +8,11 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 /**
  * {@link FakeAccountDao} implements {@link AccountDao} using fake data. Instead of storing and fetching accounts from
  * some storage, it just generates fake records using {@link TestDataGenerator}.
@@ -16,9 +21,11 @@ import static java.util.stream.Collectors.toList;
  * Its bean is called "accountDao". And it uses constructor with explicit autowired annotation in order to inject
  * {@link TestDataGenerator} instance.
  */
+@Component(value = "accountDao")
 public class FakeAccountDao implements AccountDao {
     private List<Account> accounts;
 
+    @Autowired
     public FakeAccountDao(TestDataGenerator testDataGenerator) {
         this.accounts = Stream.generate(testDataGenerator::generateAccount)
                 .limit(20)

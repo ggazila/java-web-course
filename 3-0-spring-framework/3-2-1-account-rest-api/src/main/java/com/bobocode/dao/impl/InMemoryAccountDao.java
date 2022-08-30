@@ -1,21 +1,24 @@
 package com.bobocode.dao.impl;
 
-import com.bobocode.dao.AccountDao;
-import com.bobocode.exception.EntityNotFountException;
-import com.bobocode.model.Account;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
+import com.bobocode.dao.AccountDao;
+import com.bobocode.exception.EntityNotFountException;
+import com.bobocode.model.Account;
 
 /**
  * {@link AccountDao} implementation that is based on {@link java.util.HashMap}.
  * <p>
  * todo: 1. Configure a component with name "accountDao"
  */
+@Component(value = "accountDao")
 public class InMemoryAccountDao implements AccountDao {
-    private Map<Long, Account> accountMap = new HashMap<>();
+    private final Map<Long, Account> accountMap = new HashMap<>();
     private long idSequence = 1L;
 
     @Override
@@ -42,8 +45,9 @@ public class InMemoryAccountDao implements AccountDao {
     }
 
     @Override
-    public void remove(Account account) {
+    public Account remove(Account account) {
         accountMap.remove(account.getId());
+        return account;
     }
 
     public void clear() {

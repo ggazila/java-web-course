@@ -11,5 +11,5 @@ public interface AccountDao {
 
     Account save(Account account);
 
-    void remove(Account account);
+    Account remove(Account account);
 }
